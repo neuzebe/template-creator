@@ -4,5 +4,11 @@ Rails.application.routes.draw do
   namespace :api do
     resources :document_templates
     resources :questions
+    resources :documents do
+      member do
+        post :finish
+        post :answer_question
+      end
+    end
   end
 end

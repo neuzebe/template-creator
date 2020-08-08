@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_08_060050) do
+ActiveRecord::Schema.define(version: 2020_08_08_063805) do
+
+  create_table "answers", force: :cascade do |t|
+    t.integer "question_id"
+    t.integer "document_id"
+    t.string "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "document_template_questions", force: :cascade do |t|
     t.integer "document_template_id"
@@ -23,6 +31,14 @@ ActiveRecord::Schema.define(version: 2020_08_08_060050) do
     t.string "name"
     t.text "description"
     t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "documents", force: :cascade do |t|
+    t.integer "document_template_id"
+    t.integer "status", default: 0
+    t.text "output"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
