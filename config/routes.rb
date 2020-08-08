@@ -3,5 +3,6 @@ Rails.application.routes.draw do
   #
   namespace :api do
     resources :document_templates
+    resources :questions
   end
 end
