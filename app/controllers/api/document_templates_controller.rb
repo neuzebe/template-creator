@@ -1,7 +1,7 @@
 class Api::DocumentTemplatesController < ActionController::API
   include ActionController::MimeResponds
 
-  before_action :find_document_template, only: [:edit, :update, :show_questions]
+  before_action :find_document_template, only: [:edit, :update, :show_questions, :show_answer_form]
 
   def index
     @document_templates = DocumentTemplate.all
@@ -34,6 +34,14 @@ class Api::DocumentTemplatesController < ActionController::API
 
     respond_to do |format|
       format.js { render  'document_templates/show_questions' }
+    end
+  end
+
+  def show_answer_form
+    @questions = @document_template.questions.to_a
+
+    respond_to do |format|
+      format.js { render  'document_templates/show_answer_form' }
     end
   end
 

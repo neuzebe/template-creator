@@ -10,6 +10,8 @@ class Document < ApplicationRecord
     completed:   1
   }
 
+  delegate :name, to: :document_template, allow_nil: true
+
   def finish
     doc = self
     str = doc.document_template.content
@@ -22,5 +24,9 @@ class Document < ApplicationRecord
     doc.status = :completed
 
     doc.save
+  end
+
+  def download_name
+    "#{name} - Download.pdf"
   end
 end

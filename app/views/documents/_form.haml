@@ -1,0 +1,7 @@
+%form.js-document-form
+  = hidden_field_tag :document_template_id, document_template.id
+
+  = render partial: 'documents/answer_input', collection: questions, as: :question
+
+  %a.js-submit_document{ href: '#' } Submit
+  %a.js-cancel_document{ href: '#' } Cancel

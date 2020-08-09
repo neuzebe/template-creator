@@ -8,6 +8,9 @@ $(document).ready(function(){
   $(document.body).delegate('.js-create_new_question',        'click', showQuestionForm);
   $(document.body).delegate('.js-save_question',              'click', saveQuestion);
   $(document.body).delegate('.js-cancel_question',            'click', cancelSaveQuestion);
+  $(document.body).delegate('.js-fill_out_template',          'click', showAnswerForm);
+  $(document.body).delegate('.js-submit_document',            'click', saveDocument);
+  $(document.body).delegate('.js-cancel_document',            'click', cancelDocument);
 });
 
 const showDocumentTemplateForm = () => {
@@ -147,4 +150,50 @@ const saveQuestion = async () => {
 const cancelSaveQuestion = () => {
   clearForm('.js-question-form');
   hideDocumentTemplateForm();
+};
+
+const showAnswerForm = ev => {
+  ev.preventDefault();
+
+  const templateId = $(ev.currentTarget).closest('.js-document_template').data('id');
+  $.ajax({
+    url: `/api/document_templates/${templateId}/show_answer_form.js`,
+    method: 'GET'
+  });
+};
+
+const saveDocument = async (ev) => {
+  ev.preventDefault();
+  // TODO would add validation here
+
+  const form     = document.querySelector('.js-document-form');
+  const formData = new FormData(form);
+
+  const url        = '/api/documents';
+  const method     = 'POST';
+
+  const response = await fetch(url, {
+    method: method,
+    body: formData
+  });
+
+  const result = await response.json();
+  if(result.success){
+    clearForm('.js-document-form');
+    downloadDocument(result.id);
+    $('.js-answer_form-ctn').addClass('is-hidden');
+  }
+};
+
+const downloadDocument = documentId => {
+  const el  = document.createElement('a');
+  el.target = '_blank';
+  el.href   = `/api/documents/${documentId}/download`;
+  el.click();
+};
+
+const cancelDocument = (ev) => {
+  ev.preventDefault();
+  clearForm('.js-document-form');
+  $('.js-answer_form-ctn').addClass('is-hidden');
 };

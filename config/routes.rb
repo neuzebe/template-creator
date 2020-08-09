@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :document_templates do
       member do
         get  :show_questions
+        get  :show_answer_form
       end
     end
 
@@ -20,6 +21,7 @@ Rails.application.routes.draw do
       member do
         post :finish
         post :answer_question
+        get  :download
       end
     end
   end
