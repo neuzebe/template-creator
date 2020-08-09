@@ -1,0 +1,11 @@
+%form.js-document_template-form
+  = hidden_field_tag :id, document_template&.id
+  %label Name
+  = text_field_tag 'document_template[name]', document_template&.name
+  %label Description
+  = text_area_tag 'document_template[description]', document_template&.description
+  %label Content
+  = text_area_tag 'document_template[content]', document_template&.content
+
+  %span.js-save_document_template Save
+  %span.js-cancel_document_template Cancel

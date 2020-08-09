@@ -1,0 +1,13 @@
+%h1 Template Creator
+
+%span.js-create_new_template
+  Create New  Document Template
+
+.js-document_template-form-ctn.is-hidden
+  = render partial: 'document_templates/form', locals: { document_template: nil }
+
+%hr
+
+%h2 Templates
+.js-document_templates
+  = render partial: 'document_templates/document_template', collection:  @document_templates, as: :document_template
