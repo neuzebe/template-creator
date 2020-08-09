@@ -1,24 +1,35 @@
 - already_assigned_ids = document_template.document_template_questions.pluck(:question_id)
 
-%h3
+%h3.text-center
   Questions for #{document_template.name}
 
-%span.js-create_new_question Create New Question
+.m-sm-3
+  .btn.btn-primary.btn.btn-sm.js-create_new_question Create New Question
+
+  .btn.btn-danger.btn.btn-sm.js-close_question_management Close
 
 .js-new_question-ctn.is-hidden
   = render partial: 'questions/form', locals: { question: nil, document_template: document_template }
 
 %ul.js-question_management-form{ data: { 'template-id': document_template.id } }
-  - questions.each do |question|
-    %li
-      %span
-        = question.content
-      %span
-        = question.tag
-      %span
-        - if already_assigned_ids.include?(question.id)
-          %a.js-toggle_question_assignment{ data: { id: question.id, action: 'unassign' } }
-            Unassign Question
-        - else
-          %a.js-toggle_question_assignment{ data: { id: question.id, action: 'assign' } }
-            Assign Question
+  %table.table.table-hover.table-striped
+    %thead
+      %tr
+        %th Question
+        %th Tag
+        %th Action
+
+    %tbody
+      - questions.each do |question|
+        %tr
+          %td
+            = question.content
+          %td
+            = question.tag
+          %td
+            - if already_assigned_ids.include?(question.id)
+              %a.js-toggle_question_assignment{ data: { id: question.id, action: 'unassign' } }
+                Unassign Question
+            - else
+              %a.js-toggle_question_assignment{ data: { id: question.id, action: 'assign' } }
+                Assign Question

@@ -1,4 +1,3 @@
 $('.js-question_management-ctn').html("#{ j(render partial: 'document_templates/question_management', locals: { document_template: @document_template, questions: @questions } ) }")
 
-
-$('.js-question_management-ctn').removeClass('is-hidden')
+setActiveTab('question');

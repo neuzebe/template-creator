@@ -1,7 +1,11 @@
-%form.js-document-form
-  = hidden_field_tag :document_template_id, document_template.id
+%h3.text-center
+  Fill Out #{document_template.name}
 
-  = render partial: 'documents/answer_input', collection: questions, as: :question
+%form.js-document-form.row
+  .col-8.offset-2
+    = hidden_field_tag :document_template_id, document_template.id
 
-  %a.js-submit_document{ href: '#' } Submit
-  %a.js-cancel_document{ href: '#' } Cancel
+    = render partial: 'documents/answer_input', collection: questions, as: :question
+
+    .btn.btn-primary.btn-sm.js-submit_document Submit
+    .btn.btn-danger.btn-sm.js-cancel_document Cancel

@@ -1,10 +1,20 @@
-%form.js-question-form
-  = hidden_field_tag :document_template_id, document_template&.id
-  = hidden_field_tag :id, question&.id
-  %label Content
-  = text_field_tag 'question[content]', question&.content
-  %label Tag
-  = text_area_tag 'question[tag]', question&.tag
+%h3.text-center
+  Create New Question
 
-  %span.js-save_question Save
-  %span.js-cancel_question Cancel
+%form.js-question-form.row.mb-sm-3
+  .col-8.offset-2
+    = hidden_field_tag :document_template_id, document_template&.id
+    = hidden_field_tag :id, question&.id
+
+    .form-group.row
+      .col.col-sm-12.col-md-6
+        %label Content
+        = text_field_tag 'question[content]', question&.content, class: 'form-control'
+
+    .form-group.row
+      .col.col-sm-12.col-md-6
+        %label Tag
+        = text_field_tag 'question[tag]', question&.tag, class: 'form-control'
+
+    .btn.btn-primary.btn-sm.js-save_question Save
+    .btn.btn-danger.btn-sm.js-cancel_question Cancel

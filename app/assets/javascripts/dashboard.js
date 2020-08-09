@@ -11,14 +11,15 @@ $(document).ready(function(){
   $(document.body).delegate('.js-fill_out_template',          'click', showAnswerForm);
   $(document.body).delegate('.js-submit_document',            'click', saveDocument);
   $(document.body).delegate('.js-cancel_document',            'click', cancelDocument);
+  $(document.body).delegate('.js-close_question_management',  'click', closeQuestionManagement);
 });
 
 const showDocumentTemplateForm = () => {
-  $('.js-document_template-form-ctn').removeClass('is-hidden');
+  setActiveTab('template');
 };
 
 const hideDocumentTemplateForm = () => {
-  $('.js-document_template-form-ctn').addClass('is-hidden');
+  setActiveTab('');
 };
 
 const saveDocumentTemplate = async () => {
@@ -29,11 +30,13 @@ const saveDocumentTemplate = async () => {
 
   let url        = '/api/document_templates';
   let method     = 'POST';
+  let successMsg = 'Created Template Successfully';
 
   const templateId = formData.get('id');
   if(templateId){
     url    = `/api/document_templates/${templateId}`;
     method = 'PATCH';
+    successMsg = 'Updated Template Successfully';
   }
 
   const response = await fetch(url, {
@@ -46,6 +49,9 @@ const saveDocumentTemplate = async () => {
     refreshDocumentTemplateList();
     clearForm('.js-document_template-form');
     hideDocumentTemplateForm();
+    toast(successMsg);
+  }else{
+    toast('Error. Unable To Save Template');
   }
 };
 
@@ -108,6 +114,9 @@ const toggleQuestionAssignment = async ev => {
   const result = await response.json();
   if(result.success){
     showQuestionsForTemplate(documentTemplateId);
+    toast(`Successfully ${action}ed Question`);
+  }else{
+    toast('Error Managing Question');
   }
 };
 
@@ -144,6 +153,9 @@ const saveQuestion = async () => {
     showQuestionsForTemplate(formData.get('document_template_id'));
     clearForm('.js-question-form');
     hideQuestionForm();
+    toast('Successfully Created Question');
+  }else{
+    toast('Error Creating Question');
   }
 };
 
@@ -181,7 +193,10 @@ const saveDocument = async (ev) => {
   if(result.success){
     clearForm('.js-document-form');
     downloadDocument(result.id);
-    $('.js-answer_form-ctn').addClass('is-hidden');
+    setActiveTab('');
+    toast('Document Downloaded');
+  }else{
+    toast('Error Downloading Document');
   }
 };
 
@@ -195,5 +210,23 @@ const downloadDocument = documentId => {
 const cancelDocument = (ev) => {
   ev.preventDefault();
   clearForm('.js-document-form');
-  $('.js-answer_form-ctn').addClass('is-hidden');
+  setActiveTab('');
 };
+
+const closeQuestionManagement = () => {
+  setActiveTab('');
+};
+
+const setActiveTab = tab => {
+  if(tab === ''){
+    $('.js-tab-pane, .js-nav-link').removeClass('active');
+  }else{
+    $(`#${tab}-tab`).click();
+    scrollTo(0,0);
+  }
+};
+
+const toast = message => {
+  $('.js-toast-body').html(message);
+  $('.js-toast').toast('show');
+}

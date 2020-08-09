@@ -1,11 +1,27 @@
-%form.js-document_template-form
-  = hidden_field_tag :id, document_template&.id
-  %label Name
-  = text_field_tag 'document_template[name]', document_template&.name
-  %label Description
-  = text_area_tag 'document_template[description]', document_template&.description
-  %label Content
-  = text_area_tag 'document_template[content]', document_template&.content
+%h3.text-center
+  - action = document_template ? 'Update' : 'Create New'
+  #{action} Document Template
 
-  %span.js-save_document_template Save
-  %span.js-cancel_document_template Cancel
+%form.js-document_template-form.row
+  .col-8.offset-2
+    = hidden_field_tag :id, document_template&.id
+    .form-group.row
+      .col.col-sm-12.col-md-6
+        %label Name
+        = text_field_tag 'document_template[name]', document_template&.name, class: 'form-control'
+
+    .form-group.row
+      .col.col-sm-12.col-md-6
+        %label Description
+        = text_area_tag 'document_template[description]', document_template&.description, class: 'form-control'
+
+    .form-group.row
+      .col.col-sm-12.col-md-6
+        %label Content
+        = text_area_tag 'document_template[content]', document_template&.content, class: 'form-control'
+
+    .btn.btn-primary.btn-sm.js-save_document_template
+      Save
+
+    .btn.btn-danger.btn-sm.js-cancel_document_template
+      Cancel

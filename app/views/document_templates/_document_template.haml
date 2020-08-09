@@ -1,12 +1,15 @@
-.js-document_template{ data: { id: document_template.id } }
-  %h3
-    = document_template.name
+.col.col-sm-auto.m-1
+  .card.p-lg-3.js-document_template{ data: { id: document_template.id } }
+    .card-title.text-center.font-weight-bold
+      = document_template.name
 
-  %p
-    = document_template.description
+    .card-body
+      %p
+        = document_template.description
 
-  %a.js-edit_document_template{ href: '#' } Edit
+    .card-footer
+      .btn.btn-link.js-edit_document_template Edit
 
-  %a.js-manage_template_questions{ href: '#' } Manage Questions
+      .btn.btn-link.js-manage_template_questions Manage Questions
 
-  %a.js-fill_out_template{ href: '#' } Fill Out
+      .btn.btn-link.js-fill_out_template Fill Out

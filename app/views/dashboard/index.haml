@@ -1,18 +1,43 @@
-%h1 Template Creator
+.mb-lg-5
+  %h1.text-center Template Creator
 
-%span.js-create_new_template
-  Create New  Document Template
+.toast.js-toast.fade.hide{ role: "alert", 'aria-live': "assertive", 'aria-atomic': "true", 'data-delay': '1500', 'data-autohide': "true" }
+  .toast-header
+    %strong.mr-auto Message from Template Creator
+  .toast-body.js-toast-body
+    Hello
 
-.js-document_template-form-ctn.is-hidden
-  = render partial: 'document_templates/form', locals: { document_template: nil }
+%ul.nav.nav-tabs.is-hidden#myTab{ role: "tablist" }
+  %li.nav-item{ role: "presentation" }
+    %a.js-nav-link.nav-link#template-tab{ 'data-toggle': "tab", href: "#template", role: "tab", 'aria-controls': "template", 'aria-selected': "true" }
+      Template
 
-.js-question_management-ctn.is-hidden
+  %li.nav-item{ role: "presentation" }
+    %a.js-nav-link.nav-link#question-tab{ 'data-toggle': "tab", href: "#question", role: "tab", 'aria-controls': "question", 'aria-selected': "false" }
+      Question
 
-.js-answer_form-ctn.is-hidden
+  %li.nav-item{ role: "presentation" }
+    %a.js-nav-link.nav-link#answer-tab{ 'data-toggle': "tab", href: "#answer", role: "tab", 'aria-controls': "answer", 'aria-selected': "false" }
+      Answer
 
+.tab-content#myTabContent
+  .tab-pane.js-tab-pane.fade.show#template{ role: "tabpanel", 'aria-labelledby': "template-tab"}
+    .js-document_template-form-ctn.my-lg-3
+      = render partial: 'document_templates/form', locals: { document_template: nil }
+
+  .tab-pane.js-tab-pane.fade.show#question{ role: "tabpanel", 'aria-labelledby': "question-tab"}
+    .js-question_management-ctn
+
+  .tab-pane.js-tab-pane.fade.show#answer{ role: "tabpanel", 'aria-labelledby': "answer-tab"}
+    .js-answer_form-ctn
 
 %hr
 
 %h2 Templates
-.js-document_templates
+
+.my-sm-3
+  .btn.btn-primary.btn-sm.js-create_new_template
+    Create New  Document Template
+
+.js-document_templates.row
   = render partial: 'document_templates/document_template', collection:  @document_templates, as: :document_template
