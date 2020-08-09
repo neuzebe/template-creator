@@ -16,12 +16,6 @@ class Api::DocumentsController < ActionController::API
     render json: { success: document.id.present?, id: document.id }
   end
 
-  def finish
-    success = @document.finish
-
-    render json: { success: success }
-  end
-
   def download
     document = Document.find_by_id params[:id]
 
@@ -37,14 +31,6 @@ class Api::DocumentsController < ActionController::API
     File.delete(document.download_name)
 
     send_data content, filename: document.download_name, type: :pdf
-  end
-
-  def answer_question
-    answer = Answer.new params.require(:answer).permit(:content, :question_id)
-    answer.document_id = @document.id
-    answer.save
-
-    render json: { success: answer.id.present?, id: answer.id }
   end
 
   private

@@ -19,8 +19,6 @@ Rails.application.routes.draw do
 
     resources :documents do
       member do
-        post :finish
-        post :answer_question
         get  :download
       end
     end
