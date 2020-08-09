@@ -9,7 +9,7 @@ describe 'Questions', type: :request do
     context 'with valid inputs' do
       it 'should create a new question and assign it to document' do
         expect{
-          post '/api/questions', params: { question: valid_question_params, document_template_ids: [@document_template.id] }
+          post '/api/questions', params: { question: valid_question_params, document_template_id: @document_template.id }
         }.to change(Question, :count).by(1)
 
         question = Question.last

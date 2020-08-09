@@ -4,8 +4,18 @@ Rails.application.routes.draw do
   get '/' => 'dashboard#index'
 
   namespace :api do
-    resources :document_templates
-    resources :questions
+    resources :document_templates do
+      member do
+        get  :show_questions
+      end
+    end
+
+    resources :questions do
+      member do
+        post :toggle_question_assignment
+      end
+    end
+
     resources :documents do
       member do
         post :finish
