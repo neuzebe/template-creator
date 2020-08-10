@@ -13,6 +13,8 @@ class Document < ApplicationRecord
   delegate :name, to: :document_template, allow_nil: true
 
   def finish
+    # TODO - I would think about additional checks here to confirm all tags have been replaced.
+    # Maybe the document is invalid unless completely filled
     doc = self
     str = doc.document_template.content
 
